@@ -33,7 +33,7 @@ public class TuringMaschine {
         this.bandAlphabet = scan.nextLine().toCharArray();
         this.anfangsZustand = Integer.parseInt(scan.nextLine());
         this.endzustand = Integer.parseInt(scan.nextLine());
-        this.blank = bandAlphabet[bandAlphabet.length - 1];
+        this.blank = 'B';
         // ArrayList die alle Transition speichert
         this.transitionsList = new ArrayList<>();
         while (scan.hasNextLine()) {
@@ -68,7 +68,14 @@ public class TuringMaschine {
     public boolean schritt() {
         Transition currTrans = findTransition(this.aktuellerZustand, this.band.get(this.positionKopf));
         if (currTrans == null) {
-            System.out.println("Die Turingmaschine findet keine passende Transition machen. \n Die Berechnung wurde gestoppt!");
+            System.out.println("""
+                    -------------------------------
+                    DIE TURINGMASCHINE FINDET KEINE
+                    PASSENDE TRANSITION!
+                    DIE BERECHNUNG WURDE GESTOPPT!
+                    DIE TM AKZEPTIERT DAS WORT
+                    NICHT!
+                    -------------------------------""");
             return false;
         }
         this.band.put(this.positionKopf, currTrans.b);
@@ -86,7 +93,13 @@ public class TuringMaschine {
             this.band.put(positionKopf, 'B');
         }
         if (endzustand == aktuellerZustand) {
-            System.out.println("Die Turingmaschine hat einen Endzustand erreicht. \n Die Berechnung wurde gestoppt!");
+            System.out.println("""
+                    -------------------------------
+                    DIE TURINGMASCHINE HAT EINEN
+                    ENDZUSTAND ERREICHT!
+                    DIE BERECHNUNG WURDE GESTOPPT!
+                    DAS TM AKZEPTIERT DAS WORT!
+                    -------------------------------""");
             return false;
         }
         return true;
