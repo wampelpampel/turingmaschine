@@ -50,14 +50,14 @@ public class TuringMaschine {
         }
 
         // Band initieren
-        band = new TreeMap<>();
-        band.put(-1, blank);
+        this.band = new TreeMap<>();
+        this.band.put(-1, blank);
         int i = 0;
         while (i < this.eingabeWort.length) {
-            band.put(i, this.eingabeWort[i]);
+            this.band.put(i, this.eingabeWort[i]);
             i++;
         }
-        band.put(i, blank);
+        this.band.put(i, blank);
         // --------------
 
         // TM in ursprügnliche Konfiguration machen
@@ -66,12 +66,12 @@ public class TuringMaschine {
     }
 
     public boolean schritt() {
-        Transition currTrans = findTransition(aktuellerZustand, band.get(this.positionKopf));
+        Transition currTrans = findTransition(this.aktuellerZustand, this.band.get(this.positionKopf));
         if (currTrans == null) {
             System.out.println("Die Turingmaschine findet keine passende Transition machen. \n Die Berechnung wurde gestoppt!");
             return false;
         }
-        band.put(this.positionKopf, currTrans.b);
+        this.band.put(this.positionKopf, currTrans.b);
         this.aktuellerZustand = currTrans.qStrich;
         if (currTrans.d == Direction.L) {
             this.positionKopf--;
@@ -82,8 +82,8 @@ public class TuringMaschine {
 
         //Erstelle neues Blank symbol falls man auf dem Band
         // zu weit nach links oder rechts geht
-        if (band.get(this.positionKopf) == null) {
-            band.put(positionKopf, 'B');
+        if (this.band.get(this.positionKopf) == null) {
+            this.band.put(positionKopf, 'B');
         }
         if (endzustand == aktuellerZustand) {
             System.out.println("Die Turingmaschine hat einen Endzustand erreicht. \n Die Berechnung wurde gestoppt!");
